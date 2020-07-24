@@ -1,3 +1,6 @@
+I created this project to get my hands dirty with React. I did not go ahead with tracking history as my end goal was something different. I rather added the functionality to check whether the game is a tie or not. 
+
+-----------------------------------------------
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
