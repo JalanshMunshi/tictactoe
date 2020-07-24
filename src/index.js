@@ -41,17 +41,18 @@ function Square(props) {
     //     }
     // }
     
-    handleClick(i) {
-      const squares = this.state.squares.slice();
-      if(calculateWinner(squares) || squares[i]) {
-        return;
-      }
-      squares[i] = this.state.xIsNext ? 'X' : 'O';
-      this.setState({
-        squares: squares,
-        xIsNext: !this.state.xIsNext,
-      });
-    }
+    // Move the handleClick to the Game component
+    // handleClick(i) {
+    //   const squares = this.state.squares.slice();
+    //   if(calculateWinner(squares) || squares[i]) {
+    //     return;
+    //   }
+    //   squares[i] = this.state.xIsNext ? 'X' : 'O';
+    //   this.setState({
+    //     squares: squares,
+    //     xIsNext: !this.state.xIsNext,
+    //   });
+    // }
 
     renderSquare(i) {
       return <Square 
@@ -112,11 +113,17 @@ function Square(props) {
       const history = this.state.history;
       const current = history[history.length - 1];
       const winner = calculateWinner(current.squares);
+      
       let status;
       if(winner) {
         status = 'Winner: ' + winner;
       } else {
-        status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
+        const tie = checkTie(current.squares);
+        if(tie) {
+          status = "Game tie!";
+        } else {
+          status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
+        }
       }
       return (
         <div className="game">
@@ -160,4 +167,14 @@ function Square(props) {
       }
     }
     return null;
+  }
+
+  function checkTie(squares) {
+    let n = squares.length;
+    for(let i=0; i<n; i++) {
+      if(squares[i] === null) {
+        return false;
+      }
+    }
+    return true;
   }
